@@ -7,7 +7,7 @@ const port = 3000;
 const database = require('../database/database');
 
 // import routes
-const routes = require('../../controllers/client-controllers');
+const routes = require('../../controllers/store-controllers');
 routes(app);
 
 app.listen(port, () => {
