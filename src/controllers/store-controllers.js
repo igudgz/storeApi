@@ -1,41 +1,41 @@
-const Client = require('../models/client-model');
+const Store = require('../models/store-model');
 
 module.exports = (app) => {
   // Create
-  app.post('/client', async (req, res) => {
-    const { nome, cpf, email } = req.body;
-    await Client.generateClient(nome, cpf, email)
+  app.post('/store', async (req, res) => {
+    const { cnpj, address, email, telephoneNumber, headcount } = req.body;
+    await Store.generateStore(cnpj, address, email, telephoneNumber, headcount)
       .then((ok) => {
         res.json(ok);
       })
       .catch((err) => res.send(err));
   });
   // Read
-  app.get('/client', async (req, res) => {
-    await Client.findClients()
+  app.get('/store', async (req, res) => {
+    await Store.findStores()
       .then((list) => res.json(list))
       .catch((err) => res.json(err));
   });
-  app.get('/client/:id', async (req, res) => {
+  app.get('/store/:id', async (req, res) => {
     let id = req.params.id;
-    await Client.findClientById(id)
+    await Store.findStoreById(id)
       .then((list) => res.json(list))
       .catch((err) => res.json(err));
   });
 
   //Update
-  app.put('/client/:id', async (req, res) => {
+  app.put('/store/:id', async (req, res) => {
     let id = req.params.id;
     let body = req.body;
-    await Client.updateClient(id, body)
+    await Store.updateStore(id, body)
       .then((ok) => res.json(ok))
       .catch((err) => res.json(err));
   });
 
   //Delete
-  app.delete('/client/:id', async (req, res) => {
+  app.delete('/store/:id', async (req, res) => {
     let id = req.params.id;
-    Client.deleteClient(id)
+    Store.deleteStore(id)
       .then((done) => res.json(done))
       .catch((err) => res.json(err));
   });

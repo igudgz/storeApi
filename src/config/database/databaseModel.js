@@ -4,25 +4,33 @@ const Sequelize = require('sequelize');
 //import db
 const database = require('./database');
 
-const Client = database.define('clients', {
+const Store = database.define('stores', {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     allowNull: false,
     primaryKey: true,
   },
-  nome: {
+  cnpj: {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  cpf: {
+  address: {
     type: Sequelize.STRING,
     allowNull: false,
   },
   email: {
     type: Sequelize.STRING,
+    allowNull: false,
+  },
+  telephoneNumber: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  headcount: {
+    type: Sequelize.STRING,
   },
 });
-Client.sync();
+Store.sync();
 
-module.exports = Client;
+module.exports = Store;
