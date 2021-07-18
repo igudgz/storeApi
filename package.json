@@ -4,7 +4,7 @@
   "description": "API restful",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon src/config/server/server.js",
+    "start": "node ./src/config/server/server.js",
     "test": "mocha src/test/test.js"
   },
   "keywords": [
@@ -17,13 +17,13 @@
     "sequelize": "^6.6.5",
     "sqlite3": "^5.0.2"
   },
-  "engines": {
-    "node": "v10.19.0"
-  },
   "devDependencies": {
     "chai": "^4.3.4",
     "chai-http": "^4.3.0",
     "mocha": "^9.0.2",
     "nodemon": "^2.0.12"
+  },
+  "engines": {
+    "node": "10.x"
   }
 }
