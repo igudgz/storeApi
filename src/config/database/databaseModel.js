@@ -17,15 +17,12 @@ const Store = database.define('stores', {
   },
   address: {
     type: Sequelize.STRING,
-    allowNull: false,
   },
   email: {
     type: Sequelize.STRING,
-    allowNull: false,
   },
   telephoneNumber: {
     type: Sequelize.STRING,
-    allowNull: false,
   },
   headcount: {
     type: Sequelize.INTEGER,

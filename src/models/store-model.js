@@ -63,7 +63,13 @@ class Store {
   updateStore(cnpj, body, res) {
     let cnpjUpdated = body.cnpj;
     let { email, telephoneNumber } = body;
-    if (!this.validations(cnpjUpdated, email, telephoneNumber, res)) {
+    if (cnpjUpdated || email || telephoneNumber) {
+      if (!this.validations(cnpjUpdated, email, telephoneNumber, res)) {
+        return storeModel.update(body, {
+          where: { cnpj: cnpj },
+        });
+      }
+    } else {
       return storeModel.update(body, {
         where: { cnpj: cnpj },
       });
