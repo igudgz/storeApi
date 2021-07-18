@@ -4,11 +4,20 @@ module.exports = (app) => {
   // Create
   app.post('/store', async (req, res) => {
     const { cnpj, address, email, telephoneNumber, headcount } = req.body;
-    await Store.generateStore(cnpj, address, email, telephoneNumber, headcount)
+    await Store.generateStore(
+      cnpj,
+      address,
+      email,
+      telephoneNumber,
+      headcount,
+      res
+    )
       .then((ok) => {
         res.json(ok);
       })
-      .catch((err) => res.send(err));
+      .catch((err) => {
+        res.json(err);
+      });
   });
   // Read
   app.get('/store', async (req, res) => {

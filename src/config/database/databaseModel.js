@@ -28,7 +28,7 @@ const Store = database.define('stores', {
     allowNull: false,
   },
   headcount: {
-    type: Sequelize.STRING,
+    type: Sequelize.INTEGER,
   },
 });
 Store.sync();
