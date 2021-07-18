@@ -1,7 +1,7 @@
 // import lib
 const customExpress = require('./customExpress');
 const app = customExpress();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 //import db
 const database = require('../database/database');
@@ -10,6 +10,6 @@ const database = require('../database/database');
 const routes = require('../../controllers/store-controllers');
 routes(app);
 
-app.listen(port, () => {
+module.exports = app.listen(port, () => {
   console.log(`Server started in http://localhost:${port} :)`);
 });

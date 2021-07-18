@@ -34,7 +34,7 @@ module.exports = (app) => {
           });
         }
       })
-      .catch((err) => res.status(400).json(err));
+      .catch((err) => res.status(404).json(err));
   });
   app.get('/store/:cnpj', async (req, res) => {
     let cnpj = req.params.cnpj;
@@ -43,7 +43,7 @@ module.exports = (app) => {
         if (result.length > 0) {
           res.status(200).json({ result, error: false });
         } else {
-          res.status(400).json({
+          res.status(404).json({
             message: 'There is no store with this cnpj',
             error: true,
           });
@@ -64,7 +64,7 @@ module.exports = (app) => {
             error: false,
           });
         } else {
-          res.status(400).json({
+          res.status(404).json({
             message: 'There is no store with this cnpj',
             error: true,
           });
@@ -84,7 +84,7 @@ module.exports = (app) => {
             error: false,
           });
         } else {
-          res.status(400).json({
+          res.status(404).json({
             message: 'There is no store with this cnpj',
             error: true,
           });
