@@ -16,26 +16,29 @@ class Store {
     ];
     this.emailValidation = /\S+@\S+\.\S+/;
     this.telephoneNumberValidation = /\(\d{2}\)\ \d{4,5}\-\d{4}/;
+    this.validations = (cnpj, email, telephoneNumber, res) => {
+      let errors;
+      if (cnpj.length != 14 || cnpj == '' || this.cnpjInvalid.includes(cnpj)) {
+        errors = { message: 'CNPJ invalid, try again' };
+      } else if (this.emailValidation.test(email) == false) {
+        errors = { message: 'Email invalid, try again' };
+      } else if (
+        this.telephoneNumberValidation.test(telephoneNumber) == false
+      ) {
+        errors = {
+          message:
+            'Telephone invalid, try again (XX) XXXX-XXXX / (XX) XXXXX-XXXX',
+        };
+      }
+      if (errors) {
+        return new Promise((resolve, reject) => {
+          reject(res.status(400).json(errors));
+        });
+      }
+    };
   }
   generateStore(cnpj, address, email, telephoneNumber, headcount, res) {
-    //validations
-    let errors;
-    if (cnpj.length != 14 || cnpj == '' || this.cnpjInvalid.includes(cnpj)) {
-      errors = { mensagem: 'CNPJ inválido, tente novamente' };
-    } else if (this.emailValidation.test(email) == false) {
-      errors = { mensagem: 'Email inválido, tente novamente' };
-    } else if (this.telephoneNumberValidation.test(telephoneNumber) == false) {
-      errors = {
-        mensagem:
-          'Telefone inválido, tente novamente (XX) XXXX-XXXX / (XX) XXXXX-XXXX',
-      };
-    }
-
-    if (errors) {
-      return new Promise((resolve, reject) => {
-        reject(res.status(400).json(errors));
-      });
-    } else {
+    if (!this.validations(cnpj, email, telephoneNumber, res)) {
       return storeModel.create({
         cnpj: cnpj,
         address: address,
@@ -45,26 +48,31 @@ class Store {
       });
     }
   }
+
   findStores() {
     return storeModel.findAll();
   }
 
-  findStoreById(id) {
+  findStoreByCnpj(cnpj) {
     return storeModel.findAll({
       where: {
-        id: id,
+        cnpj: cnpj,
       },
     });
   }
-  updateStore(id, body) {
-    return storeModel.update(body, {
-      where: { id: id },
-    });
+  updateStore(cnpj, body, res) {
+    let cnpjUpdated = body.cnpj;
+    let { email, telephoneNumber } = body;
+    if (!this.validations(cnpjUpdated, email, telephoneNumber, res)) {
+      return storeModel.update(body, {
+        where: { cnpj: cnpj },
+      });
+    }
   }
 
-  deleteStore(id) {
+  deleteStore(cnpj) {
     return storeModel.destroy({
-      where: { id: id },
+      where: { cnpj: cnpj },
     });
   }
 }
