@@ -15,7 +15,7 @@ describe('Test store API', () => {
         cnpj: '12345678910113',
         address: 'Testing Street',
         email: 'testing@test.com',
-        telephoneNumber: '(21) 8888-9999',
+        telephoneNumber: '(21) 88889-9999',
         headcount: 25,
       };
       chai
@@ -23,7 +23,8 @@ describe('Test store API', () => {
         .post('/store')
         .send(store)
         .end((err, res) => {
-          expect(res).to.have.status(200);
+          console.log(res.body.result);
+          expect(res).to.have.status(201);
           expect(res).to.be.a('object');
           expect(res.body).to.have.a.property('message');
           done();
@@ -117,7 +118,7 @@ describe('Test store API', () => {
         .put('/store/' + cnpjTest)
         .send(storeUpdated)
         .end((err, res) => {
-          expect(res).to.have.status(200);
+          expect(res).to.have.status(201);
           expect(res).to.be.a('object');
           expect(res.body)
             .to.have.a.property('message')

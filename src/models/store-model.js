@@ -37,9 +37,9 @@ class Store {
       }
     };
   }
-  generateStore(cnpj, address, email, telephoneNumber, headcount, res) {
+  async generateStore(cnpj, address, email, telephoneNumber, headcount, res) {
     if (!this.validations(cnpj, email, telephoneNumber, res)) {
-      return storeModel.create({
+      return await storeModel.create({
         cnpj: cnpj,
         address: address,
         email: email,
@@ -49,35 +49,35 @@ class Store {
     }
   }
 
-  findStores() {
-    return storeModel.findAll();
+  async findStores() {
+    return await storeModel.findAll();
   }
 
-  findStoreByCnpj(cnpj) {
-    return storeModel.findAll({
+  async findStoreByCnpj(cnpj) {
+    return await storeModel.findAll({
       where: {
         cnpj: cnpj,
       },
     });
   }
-  updateStore(cnpj, body, res) {
+  async updateStore(cnpj, body, res) {
     let cnpjUpdated = body.cnpj;
     let { email, telephoneNumber } = body;
     if (cnpjUpdated || email || telephoneNumber) {
       if (!this.validations(cnpjUpdated, email, telephoneNumber, res)) {
-        return storeModel.update(body, {
+        return await storeModel.update(body, {
           where: { cnpj: cnpj },
         });
       }
     } else {
-      return storeModel.update(body, {
+      return await storeModel.update(body, {
         where: { cnpj: cnpj },
       });
     }
   }
 
-  deleteStore(cnpj) {
-    return storeModel.destroy({
+  async deleteStore(cnpj) {
+    return await storeModel.destroy({
       where: { cnpj: cnpj },
     });
   }

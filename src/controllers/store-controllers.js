@@ -14,7 +14,7 @@ module.exports = (app) => {
     )
       .then((result) => {
         res
-          .status(200)
+          .status(201)
           .json({ result, message: 'Store successfully added', error: false });
       })
       .catch((err) => {
@@ -59,7 +59,7 @@ module.exports = (app) => {
     await Store.updateStore(cnpj, body, res)
       .then((result) => {
         if (result) {
-          res.status(200).json({
+          res.status(201).json({
             message: 'Store successfully updated',
             error: false,
           });
