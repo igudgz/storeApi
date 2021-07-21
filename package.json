@@ -4,7 +4,7 @@
   "description": "API restful",
   "main": "server.js",
   "scripts": {
-    "start": "node ./src/config/server/server.js",
+    "start": "nodemon ./src/config/server/server.js",
     "test": "mocha src/test/test.js"
   },
   "keywords": [

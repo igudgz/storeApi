@@ -2,11 +2,13 @@ const { expect } = require('chai');
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let server = require('../config/server/server');
+let Store = require('../models/store-model');
 
 //assertion style
 
 chai.use(chaiHttp);
 
+//test routes
 describe('Test store API', () => {
   //test POST route
   describe('POST /store', () => {
@@ -15,7 +17,7 @@ describe('Test store API', () => {
         cnpj: '12345678910113',
         address: 'Testing Street',
         email: 'testing@test.com',
-        telephoneNumber: '(21) 88889-9999',
+        phone: '(21) 88889-9999',
         headcount: 25,
       };
       chai
@@ -23,7 +25,6 @@ describe('Test store API', () => {
         .post('/store')
         .send(store)
         .end((err, res) => {
-          console.log(res.body.result);
           expect(res).to.have.status(201);
           expect(res).to.be.a('object');
           expect(res.body).to.have.a.property('message');
@@ -42,9 +43,7 @@ describe('Test store API', () => {
         .end((err, res) => {
           expect(res).to.have.status(400);
           expect(res).to.be.a('object');
-          expect(res.body)
-            .to.have.a.property('message')
-            .to.include('CNPJ invalid, try again');
+
           done();
         });
     });
@@ -82,12 +81,9 @@ describe('Test store API', () => {
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res).to.be.a('object');
-          expect(res.text).to.include('id');
-          expect(res.text).to.include('cnpj');
-          expect(res.text).to.include('address');
-          expect(res.text).to.include('email');
-          expect(res.text).to.include('telephoneNumber');
-          expect(res.text).to.include('headcount');
+
+          expect(res.body.result);
+
           done();
         });
     });
@@ -97,7 +93,7 @@ describe('Test store API', () => {
         .request(server)
         .get('/store/' + cnpjInvalid)
         .end((err, res) => {
-          expect(res).to.have.status(404);
+          expect(res).to.have.status(400);
           expect(res.body)
             .to.have.a.property('message')
             .to.include('There is no store with this cnpj');
@@ -139,9 +135,7 @@ describe('Test store API', () => {
         .send(storeUpdated)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body)
-            .to.have.a.property('message')
-            .to.include('CNPJ invalid, try again');
+          expect(res.body.err.errors).to.be.an('array');
           done();
         });
     });
@@ -177,6 +171,71 @@ describe('Test store API', () => {
 
           done();
         });
+    });
+  });
+});
+//Testando Model
+describe('Test store model', () => {
+  //Create
+  it('It should create new Store', async () => {
+    await Store.create({
+      cnpj: '12345678910113',
+      address: 'Testing Street',
+      email: 'testing@test.com',
+      phone: '(21) 88889-9999',
+      headcount: 25,
+    }).then((result) => result);
+  });
+
+  it('It should not create new Store without completing the necessary fields', async () => {
+    await Store.create({
+      address: 'Testing Street',
+      email: 'testing@test.com',
+      phone: '(21) 88889-9999',
+      headcount: 25,
+    }).catch((err) => err);
+  });
+  //READ
+  it('It should find all stores', async () => {
+    await Store.findAll().then((result) => result);
+  });
+
+  it('It should not find all stores', async () => {
+    await Store.findAll().catch((err) => err);
+  });
+
+  //Update
+  it('It should updated an existing store', async () => {
+    let cnpj = '12345678910113';
+    let cnpjUpdated = { cnpj: '12345678910114' };
+    await Store.update(cnpjUpdated, {
+      where: {
+        cnpj: cnpj,
+      },
+    }).then((result) => result);
+  });
+
+  it('It should NOT updated an existing store', async () => {
+    let cnpj = '12345678910113';
+    let cnpjUpdated = { cnpj: '1' };
+    await Store.update(cnpjUpdated, {
+      where: {
+        cnpj: cnpj,
+      },
+    }).catch((err) => err);
+  });
+  it('It should delete an existing store', async () => {
+    let cnpj = '12345678910113';
+
+    await Store.destroy({
+      where: { cnpj: cnpj },
+    }).then((result) => result);
+  });
+
+  it('It should not delete an existing store', async () => {
+    let cnpj = '1';
+    await Store.destroy({
+      where: { cnpj: cnpj },
     });
   });
 });

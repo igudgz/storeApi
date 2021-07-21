@@ -3,15 +3,14 @@ const Store = require('../models/store-model');
 module.exports = (app) => {
   // Create
   app.post('/store', async (req, res) => {
-    const { cnpj, address, email, telephoneNumber, headcount } = req.body;
-    await Store.generateStore(
-      cnpj,
-      address,
-      email,
-      telephoneNumber,
-      headcount,
-      res
-    )
+    const { cnpj, address, email, phone, headcount } = req.body;
+    await Store.create({
+      cnpj: cnpj,
+      address: address,
+      email: email,
+      phone: phone,
+      headcount: headcount,
+    })
       .then((result) => {
         res
           .status(201)
@@ -23,7 +22,7 @@ module.exports = (app) => {
   });
   // Read
   app.get('/store', async (req, res) => {
-    await Store.findStores()
+    await Store.findAll()
       .then((result) => {
         if (result.length > 0) {
           res.status(200).json({ result, error: false });
@@ -38,12 +37,16 @@ module.exports = (app) => {
   });
   app.get('/store/:cnpj', async (req, res) => {
     let cnpj = req.params.cnpj;
-    await Store.findStoreByCnpj(cnpj)
+    await Store.findAll({
+      where: {
+        cnpj: cnpj,
+      },
+    })
       .then((result) => {
         if (result.length > 0) {
           res.status(200).json({ result, error: false });
         } else {
-          res.status(404).json({
+          res.status(400).json({
             message: 'There is no store with this cnpj',
             error: true,
           });
@@ -56,7 +59,10 @@ module.exports = (app) => {
   app.put('/store/:cnpj', async (req, res) => {
     let cnpj = req.params.cnpj;
     let body = req.body;
-    await Store.updateStore(cnpj, body, res)
+
+    await Store.update(body, {
+      where: { cnpj: cnpj },
+    })
       .then((result) => {
         if (result) {
           res.status(201).json({
@@ -67,16 +73,22 @@ module.exports = (app) => {
           res.status(404).json({
             message: 'There is no store with this cnpj',
             error: true,
+            result: result,
           });
         }
       })
-      .catch((err) => res.status(400).json({ err, error: true }));
+      .catch((err) => {
+        console.log(err);
+        res.status(400).json({ err, error: true });
+      });
   });
 
   //Delete
   app.delete('/store/:cnpj', async (req, res) => {
     let cnpj = req.params.cnpj;
-    Store.deleteStore(cnpj)
+    await Store.destroy({
+      where: { cnpj: cnpj },
+    })
       .then((result) => {
         if (result) {
           res.status(200).json({
