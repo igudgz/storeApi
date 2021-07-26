@@ -27,9 +27,9 @@ After downloading, use the npm start command to start.
 
 ​                                    <!--example done in insommnia program.-->
 
-- To find a specific store in the system, use the route with the same method in the program : `http://localhost:3000/store/:cnpj` ,replace `:cnpj` with the cnpj of the store you want to find.
+- To find a specific store in the system, use the route with the same method in the program : `http://localhost:3000/store/:id` ,replace `:id` with the cnpj of the store you want to find.
 
-​                        ![](https://i.imgur.com/bDguoFy.png)
+​                        ![](https://i.imgur.com/eVwjHK6.jpg)
 
 ​                       <!--example done in insommnia program.-->
 
@@ -43,16 +43,16 @@ After downloading, use the npm start command to start.
 
 ### Method PUT (Update)
 
-- To update data from a store, now with the PUT method use the route `localhost:3000/:cnpj` replace `:cnpj` with the cnpj of the store and with the fields you want to update.
+- To update data from a store, now with the PUT method use the route `localhost:3000/:id` replace `:id` with the cnpj of the store and with the fields you want to update.
 
-​             ![](https://i.imgur.com/lznNZqk.png) 
+​             ![](https://i.imgur.com/St5PJy7.jpg) 
                                     <!--example done in insommnia program.-->
 
 ### Method DELETE (Delete)
 
-- Finally, to delete a store from the system, use the route `localhost:3000/:cnpj`,replace the `:cnpj `with the cnpj of the store you want to delete
+- Finally, to delete a store from the system, use the route `localhost:3000/:id`,replace the `:id `with the cnpj of the store you want to delete
 
-​                           ![](https://i.imgur.com/FKZAVgY.png)
+​                           ![](https://i.imgur.com/9qQciyQ.jpg)
 
 
 
