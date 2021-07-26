@@ -12,17 +12,16 @@ module.exports = (app) => {
         phone: phone,
         headcount: headcount,
       });
-      console.log(result);
-      if (result.length > 0) {
+      console.log(result, 'oi');
+      if (result.dataValues) {
         res
           .status(201)
           .json({ result, message: 'Store successfully added', error: false });
       } else {
-        throw new Error('Error adding store ');
+        throw new Error('Error adding store');
       }
     } catch (error) {
-      console.log(error);
-      res.status(400).json({ error: error, error: error.message, error: true });
+      res.status(400).json({ error: true, error: error });
     }
   });
   // Read
@@ -35,7 +34,7 @@ module.exports = (app) => {
         throw new Error('There are no stores in the system');
       }
     } catch (error) {
-      res.status(404).json({ error, error: error.message, error: true });
+      res.status(404).json({ error: true, error: error });
     }
   });
   app.get('/store/:cnpj', async (req, res) => {
@@ -52,7 +51,7 @@ module.exports = (app) => {
         throw new Error('There is no store with this cnpj');
       }
     } catch (error) {
-      res.status(404).json({ error, error: error.message, error: true });
+      res.status(404).json({ error: true, error: error });
     }
   });
 
@@ -77,7 +76,7 @@ module.exports = (app) => {
         });
       }
     } catch (error) {
-      res.status(404).json({ error, error: error.message, error: true });
+      res.status(404).json({ error: true, error: error });
     }
   });
 
@@ -102,7 +101,7 @@ module.exports = (app) => {
         });
       }
     } catch (error) {
-      res.status(404).json({ error, error: error.message, error: true });
+      res.status(404).json({ error: true, error: error });
     }
   });
 };

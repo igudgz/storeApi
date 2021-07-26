@@ -42,18 +42,24 @@ const Store = database.define('stores', {
   email: {
     type: Sequelize.STRING,
     validate: {
-      isEmail: true,
+      isEmail: {
+        args: true,
+        msg: 'Email invalid! Try again',
+      },
     },
   },
   phone: {
-    type: Sequelize.STRING,
+    type: Sequelize.INTEGER,
     validate: {
-      validatePhone: function (phone) {
-        const valid = /\(\d{2,}\) \d{4,}\-\d{4}/g;
-        if (valid.test(phone) == false) {
-          throw new Error('Phone format error!');
-        }
+      isNumeric: {
+        args: true,
+        msg: 'Phone invalid! Try again DDDNUMBER',
       },
+      isInt: {
+        args: true,
+        msg: 'Phone invalid! Try again DDDNUMBER',
+      },
+      len: [10 - 11],
     },
   },
   headcount: {
