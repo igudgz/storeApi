@@ -7,11 +7,14 @@ the stores are composed by ID, CNPJ, ADDRESS, STORE EMAIL, STORE PHONE and the n
 
 
 ## Project start
-
+First at the terminal type the command to download the dependencies of this project.
 > ```
-> At the terminal type the command `npm install` to download the dependencies of this project. After downloading, use the `npm start` command to start.
+>  npm install
 > ```
-
+After downloading, use the npm start command to start.
+> ```
+>   npm start
+> ```
 ## Routes
 
    The project was built following the rest pattern with the 4 necessary HTTP verbs: Get,Post,Put and Delete, with that the CRUD system was applied, to read, create, update and delete.
@@ -28,13 +31,13 @@ the stores are composed by ID, CNPJ, ADDRESS, STORE EMAIL, STORE PHONE and the n
 
 ​                        ![](https://i.imgur.com/bDguoFy.png)
 
-​                                    <!--example done in insommnia program.-->
+​                       <!--example done in insommnia program.-->
 
 ### Method POST (Create)
 
 - To insert a new store, now using the POST method in the program, use the route : `localhost:3000/store` route with the following data as in the example below.
 
-  ​               ![](https://i.imgur.com/DyzJshH.png)
+​              ![](https://i.imgur.com/OhndqpN.jpg)
 
 ​                                    <!--example done in insommnia program.-->
 
@@ -42,9 +45,8 @@ the stores are composed by ID, CNPJ, ADDRESS, STORE EMAIL, STORE PHONE and the n
 
 - To update data from a store, now with the PUT method use the route `localhost:3000/:cnpj` replace `:cnpj` with the cnpj of the store and with the fields you want to update.
 
-  ![](https://i.imgur.com/lznNZqk.png)
-
-​                                     <!--example done in insommnia program.-->
+​             ![](https://i.imgur.com/lznNZqk.png) 
+                                    <!--example done in insommnia program.-->
 
 ### Method DELETE (Delete)
 
