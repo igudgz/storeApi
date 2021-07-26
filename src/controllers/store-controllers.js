@@ -12,7 +12,6 @@ module.exports = (app) => {
         phone: phone,
         headcount: headcount,
       });
-      console.log(result, 'oi');
       if (result.dataValues) {
         res
           .status(201)
@@ -37,12 +36,12 @@ module.exports = (app) => {
       res.status(404).json({ error: true, error: error });
     }
   });
-  app.get('/store/:cnpj', async (req, res) => {
-    let cnpj = req.params.cnpj;
+  app.get('/store/:id', async (req, res) => {
+    let id = req.params.id;
     try {
       let result = await Store.findAll({
         where: {
-          cnpj: cnpj,
+          id: id,
         },
       });
       if (result.length > 0) {
@@ -56,13 +55,13 @@ module.exports = (app) => {
   });
 
   //Update
-  app.put('/store/:cnpj', async (req, res) => {
-    let cnpj = req.params.cnpj;
+  app.put('/store/:id', async (req, res) => {
+    let id = req.params.id;
     let body = req.body;
 
     try {
       let result = await Store.update(body, {
-        where: { cnpj: cnpj },
+        where: { id: id },
       });
       if (result) {
         res.status(201).json({
@@ -81,12 +80,12 @@ module.exports = (app) => {
   });
 
   //Delete
-  app.delete('/store/:cnpj', async (req, res) => {
-    let cnpj = req.params.cnpj;
+  app.delete('/store/:id', async (req, res) => {
+    let id = req.params.id;
 
     try {
       let result = await Store.destroy({
-        where: { cnpj: cnpj },
+        where: { id: id },
       });
 
       if (result) {
