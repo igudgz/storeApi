@@ -2,7 +2,8 @@
 # storeAPI
 
 
- A project created for the end of module 4 of Resília Educação, it was made to simulate a system of stores in a dental companies.
+ A project created for the end of module 4 of Resília Educação, it was made to simulate a system of stores in a dental companies, 
+the stores are composed by ID, CNPJ, ADDRESS, STORE EMAIL, STORE PHONE and the number of employees (HEADCOUNT).
 
 
 ## Project start
