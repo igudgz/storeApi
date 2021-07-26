@@ -12,6 +12,7 @@ module.exports = (app) => {
         phone: phone,
         headcount: headcount,
       });
+      console.log(result);
       if (result.length > 0) {
         res
           .status(201)
@@ -20,7 +21,8 @@ module.exports = (app) => {
         throw new Error('Error adding store ');
       }
     } catch (error) {
-      res.status(400).json({ error, error: error.message, error: true });
+      console.log(error);
+      res.status(400).json({ error: error, error: error.message, error: true });
     }
   });
   // Read

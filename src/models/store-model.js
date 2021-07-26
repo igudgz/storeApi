@@ -48,8 +48,9 @@ const Store = database.define('stores', {
   phone: {
     type: Sequelize.STRING,
     validate: {
-      validatePhone: function (value) {
-        if (/\(\d{2}\)\ \d{4,5}\-\d{4}/.test(value) == false) {
+      validatePhone: function (phone) {
+        const valid = /\(\d{2,}\) \d{4,}\-\d{4}/g;
+        if (valid.test(phone) == false) {
           throw new Error('Phone format error!');
         }
       },
