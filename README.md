@@ -5,6 +5,10 @@
  A project created for the end of module 4 of Resília Educação, it was made to simulate a system of stores in a dental companies, 
 the stores are composed by ID, CNPJ, ADDRESS, STORE EMAIL, STORE PHONE and the number of employees (HEADCOUNT).
 
+To have a better view of how the api works, click on the link: https://murmuring-ocean-68441.herokuapp.com/
+
+NOTE: put in the parameter at the end of the link  `/store` 
+
 
 ## Project start
 First at the terminal type the command to download the dependencies of this project.
@@ -26,7 +30,7 @@ After downloading, use the npm start command to start.
 ![](https://i.imgur.com/dcTrVLB.png)
 
 ​                                    <!--example done in insommnia program.-->
-- If the request is all right, it will receive this as an answer, if it gives an error, it will be the answer containing the error.
+- If the request is all right, it will receive this as an response, if it gives an error, it will be the answer containing the error.
 
 ![](https://i.imgur.com/9fG33zl.jpg)
 
@@ -37,7 +41,7 @@ After downloading, use the npm start command to start.
 ​                        ![](https://i.imgur.com/eVwjHK6.jpg)
 
 ​                       <!--example done in insommnia program.-->
-- If the request is all right, it will receive this as an answer, if it gives an error, it will be the answer containing the error.
+- If the request is all right, it will receive this as an response, if it gives an error, it will be the answer containing the error.
 
 ![](https://i.imgur.com/lDwL1Gh.jpg)
 
@@ -51,7 +55,7 @@ After downloading, use the npm start command to start.
 
 ​                                    <!--example done in insommnia program.-->
 
-- If the request is all right, it will receive this as an answer, if it gives an error, it will be the answer containing the error.
+- If the request is all right, it will receive this as an response, if it gives an error, it will be the answer containing the error.
 
 ![](https://i.imgur.com/bXXH0fV.jpg)
 
@@ -66,7 +70,7 @@ After downloading, use the npm start command to start.
                                     <!--example done in insommnia program.-->
                                     
 
-- If the request is all right, it will receive this as an answer, if it gives an error, it will be the answer containing the error.
+- If the request is all right, it will receive this as an response, if it gives an error, it will be the answer containing the error.
 
 ![](https://i.imgur.com/lL6I4ZA.jpg)
 
@@ -78,7 +82,7 @@ After downloading, use the npm start command to start.
 
 ​                           ![](https://i.imgur.com/9qQciyQ.jpg)
 
-- If the request is all right, it will receive this as an answer, if it gives an error, it will be the answer containing the error.
+- If the request is all right, it will receive this as an response, if it gives an error, it will be the answer containing the error.
 
 ![](https://i.imgur.com/ikMN4H7.jpg)
 
