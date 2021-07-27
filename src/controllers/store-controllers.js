@@ -27,6 +27,7 @@ module.exports = (app) => {
   app.get('/store', async (req, res) => {
     try {
       let result = await Store.findAll();
+      console.log(result);
       if (result.length > 0) {
         res.status(200).json({ result, error: false });
       } else {
