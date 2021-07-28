@@ -4,7 +4,7 @@
   "description": "API restful",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon ./src/config/server/server.js",
+    "start": "node ./src/config/server/server.js",
     "test": "mocha src/test/test.js"
   },
   "keywords": [
@@ -13,6 +13,7 @@
   "author": "Igor Rodrigues",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "sequelize": "^6.6.5",
     "sqlite3": "^5.0.2"
@@ -24,6 +25,6 @@
     "nodemon": "^2.0.12"
   },
   "engines": {
-    "node": "10.x"
+    "node": "14.x"
   }
 }
