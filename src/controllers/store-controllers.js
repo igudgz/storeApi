@@ -20,21 +20,21 @@ module.exports = (app) => {
         throw new Error('Error adding store');
       }
     } catch (error) {
-      res.status(400).json({ error: true, error: error });
+      res.status(400).json({ result: error.message, error: true });
     }
   });
   // Read
   app.get('/store', async (req, res) => {
     try {
       let result = await Store.findAll();
-      console.log(result);
+
       if (result.length > 0) {
         res.status(200).json({ result, error: false });
       } else {
         throw new Error('There are no stores in the system');
       }
     } catch (error) {
-      res.status(404).json({ error: true, error: error });
+      res.status(404).json({ result: error.message, error: true });
     }
   });
   app.get('/store/:id', async (req, res) => {
@@ -45,13 +45,20 @@ module.exports = (app) => {
           id: id,
         },
       });
+
       if (result.length > 0) {
         res.status(200).json({ result, error: false });
       } else {
         throw new Error('There is no store with this cnpj');
       }
     } catch (error) {
-      res.status(404).json({ error: true, error: error });
+      const resError = {
+        error: {
+          result: error.message,
+          error: true,
+        },
+      };
+      res.status(404).json(resError);
     }
   });
 
@@ -64,19 +71,17 @@ module.exports = (app) => {
       let result = await Store.update(body, {
         where: { id: id },
       });
-      if (result) {
+      console.log(result);
+      if (result.includes(1) == true) {
         res.status(201).json({
           message: 'Store successfully updated',
           error: false,
         });
       } else {
-        throw new Error({
-          error: 'There is no store with this cnpj',
-          result: result,
-        });
+        throw new Error('Data invalid! Try again.');
       }
     } catch (error) {
-      res.status(404).json({ error: true, error: error });
+      res.status(400).json({ result: error.message, error: true });
     }
   });
 
@@ -95,13 +100,10 @@ module.exports = (app) => {
           error: false,
         });
       } else {
-        throw new Error({
-          error: 'There is no store with this cnpj',
-          result: result,
-        });
+        throw new Error('Error deleting store, store not found');
       }
     } catch (error) {
-      res.status(404).json({ error: true, error: error });
+      res.status(404).json({ result: error.message, error: true });
     }
   });
 };
