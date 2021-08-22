@@ -30,7 +30,7 @@ const Store = database.define('stores', {
           '99999999999999',
         ];
         if (cnpj == undefined || cnpj == '' || cnpjInvalid.includes(cnpj)) {
-          throw new Error('CNPJ invalid, try again');
+          throw new Error('CNPJ invalid, try again pls');
         } else {
         }
       },
