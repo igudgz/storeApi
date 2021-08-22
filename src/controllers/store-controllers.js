@@ -15,7 +15,11 @@ module.exports = (app) => {
       if (result.dataValues) {
         res
           .status(201)
-          .json({ result, message: 'Store successfully added', error: false });
+          .json({
+            result,
+            message: 'Store successfully added pls',
+            error: false,
+          });
       } else {
         throw new Error('Error adding store');
       }
