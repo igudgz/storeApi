@@ -71,7 +71,7 @@ module.exports = (app) => {
       let result = await Store.update(body, {
         where: { id: id },
       });
-      console.log(result);
+
       if (result.includes(1) == true) {
         res.status(201).json({
           message: 'Store successfully updated',

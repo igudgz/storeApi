@@ -115,7 +115,6 @@ describe('Test store API', () => {
           address: 'Address Changed',
         })
         .end((err, res) => {
-          console.log(res);
           expect(res).to.have.status(201);
           expect(res).to.be.a('object');
           expect(res.body)
@@ -144,17 +143,18 @@ describe('Test store API', () => {
   });
 
   //test DELETE route
-  describe('DELETE /store/:cnpj', () => {
-    it('It should DELETE an existing task', (done) => {
-      const idTest = 15;
+  describe('DELETE /store/:id', () => {
+    it('It should DELETE an existing store', (done) => {
+      const idTest = 14;
       chai
         .request(server)
         .delete('/store/' + idTest)
         .end((err, res) => {
+          console.log(res, 'aqui');
           expect(res).to.have.status(200);
           expect(res).to.be.a('object');
           expect(res.body)
-            .to.have.a.property('result')
+            .to.have.a.property('message')
             .to.include('Store successfully deleted');
           done();
         });
@@ -193,7 +193,7 @@ describe('Test store model', () => {
     await Store.create({
       address: 'Testing Street',
       email: 'testing@test.com',
-      phone: '(21) 88889-9999',
+      phone: 21998998374,
       headcount: 25,
     }).catch((err) => err);
   });
