@@ -14,10 +14,11 @@ describe('Test store API', () => {
   describe('POST /store', () => {
     it('It should POST a new store', (done) => {
       const store = {
+        id: 15,
         cnpj: '12345678910113',
         address: 'Testing Street',
         email: 'testing@test.com',
-        phone: '(21) 88889-9999',
+        phone: '2131045093',
         headcount: 25,
       };
       chai
@@ -71,13 +72,13 @@ describe('Test store API', () => {
         });
     });
   });
-  //test GET (by cnpj) route
-  describe('GET /store/:cnpj', () => {
-    it('It should GET a store by CNPJ', (done) => {
-      const cnpjTest = 12345678910113;
+  //test GET (by id) route
+  describe('GET /store/:id', () => {
+    it('It should GET a store by ID', (done) => {
+      const idTest = 1;
       chai
         .request(server)
-        .get('/store/' + cnpjTest)
+        .get('/store/' + idTest)
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res).to.be.a('object');
@@ -87,15 +88,16 @@ describe('Test store API', () => {
           done();
         });
     });
-    it('It should NOT GET a store by CNPJ', (done) => {
-      const cnpjInvalid = 11111111111111;
+    it('It should NOT GET a store by ID', (done) => {
+      const idInvalid = 99999;
       chai
         .request(server)
-        .get('/store/' + cnpjInvalid)
+        .get('/store/' + idInvalid)
         .end((err, res) => {
-          expect(res).to.have.status(400);
+          expect(res).to.have.status(404);
           expect(res.body)
-            .to.have.a.property('message')
+            .to.have.a.property('error')
+            .to.property('result')
             .to.include('There is no store with this cnpj');
           done();
         });
@@ -103,16 +105,15 @@ describe('Test store API', () => {
   });
 
   //test PUT route
-  describe('PUT /store/:cnpj', () => {
+  describe('PUT /store/:id', () => {
     it('It should PUT an existing store', (done) => {
-      const cnpjTest = 12345678910113;
-      const storeUpdated = {
-        address: 'Address changed',
-      };
+      const idTest = 16;
       chai
         .request(server)
-        .put('/store/' + cnpjTest)
-        .send(storeUpdated)
+        .put('/store/' + idTest)
+        .send({
+          address: 'Address Changed',
+        })
         .end((err, res) => {
           expect(res).to.have.status(201);
           expect(res).to.be.a('object');
@@ -125,30 +126,31 @@ describe('Test store API', () => {
     });
 
     it('It should NOT PUT an existing store if you put the invalid fields', (done) => {
-      const cnpjTest = 12345678910113;
+      const idTest = 14;
       const storeUpdated = {
         cnpj: 'Ta',
       };
       chai
         .request(server)
-        .put('/store/' + cnpjTest)
+        .put('/store/' + idTest)
         .send(storeUpdated)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.err.errors).to.be.an('array');
+          expect(res.body).to.have.a.property('error').to.be.true;
           done();
         });
     });
   });
 
   //test DELETE route
-  describe('DELETE /store/:cnpj', () => {
-    it('It should DELETE an existing task', (done) => {
-      const cnpjTest = 12345678910113;
+  describe('DELETE /store/:id', () => {
+    it('It should DELETE an existing store', (done) => {
+      const idTest = 14;
       chai
         .request(server)
-        .delete('/store/' + cnpjTest)
+        .delete('/store/' + idTest)
         .end((err, res) => {
+          console.log(res, 'aqui');
           expect(res).to.have.status(200);
           expect(res).to.be.a('object');
           expect(res.body)
@@ -159,15 +161,15 @@ describe('Test store API', () => {
     });
 
     it('It should NOT DELETE a store that is not in the database', (done) => {
-      const cnpjTest = 145;
+      const idTest = 145;
       chai
         .request(server)
-        .delete('/store/' + cnpjTest)
+        .delete('/store/' + idTest)
         .end((err, res) => {
           expect(res).to.have.status(404);
           expect(res.body)
-            .to.have.a.property('message')
-            .to.include('There is no store with this cnpj');
+            .to.have.a.property('result')
+            .to.include('Error deleting store, store not found');
 
           done();
         });
@@ -182,7 +184,7 @@ describe('Test store model', () => {
       cnpj: '12345678910113',
       address: 'Testing Street',
       email: 'testing@test.com',
-      phone: '(21) 88889-9999',
+      phone: 21998998374,
       headcount: 25,
     }).then((result) => result);
   });
@@ -191,7 +193,7 @@ describe('Test store model', () => {
     await Store.create({
       address: 'Testing Street',
       email: 'testing@test.com',
-      phone: '(21) 88889-9999',
+      phone: 21998998374,
       headcount: 25,
     }).catch((err) => err);
   });
